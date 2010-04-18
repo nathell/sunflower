@@ -31,11 +31,15 @@ review.  Upon confirmation, the entire collection will be backed up
 Building it
 -----------
 
-Sunflower is written in Clojure, using Leiningen. Just say
+Sunflower is written in Clojure and is buildable using Leiningen. Just say
 
     lein uberjar
 
-to produce a standalone jar.
+to produce a standalone jar.  You will need to have flyingsaucer.jar
+in your local Maven repository; get the jar from [Flying Saucer's site] 
+and do something along the lines of:
+
+    mvn install:install-file -DgroupId=flyingsaucer -DartifactId=flyingsaucer -Dversion=8.0 -Dfile=flyingsaucer.jar -DgeneratePom=true -Dpackaging=jar
 
 Name and author
 ---------------
@@ -49,3 +53,4 @@ License. See the file LICENSE for details.
 
  [Daniel Janus]: http://danieljanus.pl
  [National Corpus of Polish]: http://nkjp.pl/index.php?page=0&lang=1
+ [Flying Saucer's site]: http://pigeonholdings.com/projects/flyingsaucer/R8/downloads/flyingsaucer-R8.zip
