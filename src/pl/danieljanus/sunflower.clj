@@ -211,6 +211,15 @@ a bunch of similarly-looking HTML files, leaving the pure<br>
 text &mdash; the content you're actually interested in.<br><br>
 Press Next to start.")
 
+(defn save-extracted-tree
+  "Serializes extracted tree to HTML and saves it to a file."
+  [file tree]
+  (spit file
+        (html [:html
+               [:head [:meta {:http-equiv "Content-Type"
+                              :content "text/html; charset=utf-8"}]]
+               [:body tree]])))
+
 (defn operate []
   (with-components [selected-dir wizard-back wizard-cancel progress subtree-path errors-model operation]
     (let [files (htmls selected-dir)]
@@ -225,7 +234,7 @@ Press Next to start.")
             (.setValue progress (inc (.getValue progress))))
           (let [out (-> file parse (extract-subtree subtree-path))]
             (if out
-              (spit file (html out))
+              (save-extracted-tree file out)
               (do
                 (do-swing (.addElement errors-model (format "Extracted empty subtree from %s, deleting" file)))
                 (.delete file)))))
